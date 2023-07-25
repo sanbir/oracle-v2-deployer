@@ -20,9 +20,9 @@ export async function deployOne(
         validatorData,
         {
             gasLimit: 200000,
-            maxPriorityFeePerGas: 1000000000,
+            maxPriorityFeePerGas: 3000000000,
             maxFeePerGas: 50000000000,
-            nonce
+            // nonce
         }
     )
     const txReceipt = await tx.wait(1)
