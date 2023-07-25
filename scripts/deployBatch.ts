@@ -25,7 +25,7 @@ export async function deployBatch(
         clientConfigs,
         validatorDatas,
         {
-            gasLimit: 10000000,
+            gasLimit: 6000000,
             maxPriorityFeePerGas: 3000000000,
             maxFeePerGas: 50000000000,
             nonce
@@ -37,10 +37,10 @@ export async function deployBatch(
         throw Error('No FeeDistributorCreated found')
     }
 
-    deployDataArray.forEach(deployData => {
+    deployDataArray.forEach((deployData, index) => {
         const clientEvent = events.find((event: any) => event.args?._clientAddress == deployData.clientConfig.recipient)
         if (clientEvent) {
-            deployData.feeDistributorAddress = clientEvent.args?._newFeeDistributorAddress
+            deployDataArray[index].feeDistributorAddress = clientEvent.args?._newFeeDistributorAddress
         }
     })
 
