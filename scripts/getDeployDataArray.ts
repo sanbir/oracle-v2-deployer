@@ -6,12 +6,14 @@ import {ethers} from "ethers";
 import {DeployData} from "./models/DeployData";
 import {fromCsvEntryToClientConfig} from "./helpers/fromCsvEntryToClientConfig";
 import {ValidatorData} from "./models/ValidatorData";
+import {attachValidatorIndexes} from "./helpers/attachValidatorIndexes";
 
 export async function getDeployDataArray() {
     const lastUsedContractId = await getLastUsedContractId()
     let startingFirstValidatorId = lastUsedContractId + 1000
 
     const csvEntries = await readFromCsv()
+    await attachValidatorIndexes(csvEntries)
 
     const arrayFromBq = await getRowsFromBigQuery(csvEntries.map(en => en.validator_index))
 

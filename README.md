@@ -27,8 +27,8 @@ DEFAULT_CLIENT_BASIS_POINTS=THIS_VALUE_WILL_REPLACE_ZERO_FEES_IN_INPUT_CSV_FILE
 
 It should be in a format:
 ```
-validator_index,validator_key,withdrawal_address,fee
-420042,0x426fcf39629578fdcfb26523f5bce834233ffeb9a5ee4aa48a4ac9bafd85775042e859823696ef61080b6d298e124221,0x42282481aecaf41b93289153a219ba4222699f42,0.15
+validator_key,withdrawal_address,fee
+0x426fcf39629578fdcfb26523f5bce834233ffeb9a5ee4aa48a4ac9bafd85775042e859823696ef61080b6d298e124221,0x42282481aecaf41b93289153a219ba4222699f42,0.15
 ```
 
 4. Make sure you `PRIVATE_KEY` corresponds to an address that has operator privileges in the `BatchFactory` contract.
