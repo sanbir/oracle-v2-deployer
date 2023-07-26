@@ -44,7 +44,5 @@ export async function deployBatch(
         }
     })
 
-    console.log('deployed')
-
     return deployDataArray
 }
