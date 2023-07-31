@@ -31,6 +31,7 @@ app.get('/recently-deployed-csv', async (req: Request, res: Response) => {
 })
 
 app.post('/upload-csv', upload.single('file'), (req: Request, res: Response) => {
+    console.log('Deploy started', new Date())
     if (!req.file) {
         res.status(400).send('No file in request')
         return
@@ -47,6 +48,8 @@ app.post('/upload-csv', upload.single('file'), (req: Request, res: Response) => 
         }
 
         await deploy()
+
+        console.log('Deploy finished', new Date())
     });
 });
 
