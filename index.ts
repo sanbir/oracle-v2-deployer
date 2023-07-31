@@ -5,7 +5,18 @@ import axios from 'axios'
 import FormData from 'form-data'
 import {deploy} from "./deploy"
 
-const upload = multer()
+const storage = multer.diskStorage(
+    {
+        destination: process.env.INPUT_CSV_FILE_PATH!,
+        filename: function ( req, file, cb ) {
+            //req.body is empty...
+            //How could I get the new_file_name property sent from client here?
+            cb( null, 'input.csv');
+        }
+    }
+);
+
+const upload = multer( { storage: storage } );
 
 const app = express()
 
@@ -30,7 +41,7 @@ app.get('/recently-deployed-csv', async (req: Request, res: Response) => {
     res.sendFile(outputCsvFilePath)
 })
 
-app.post('/upload-csv', upload.single('file'), (req: Request, res: Response) => {
+app.post('/upload-csv', upload.single('file'), async (req: Request, res: Response) => {
     console.log('Deploy started', new Date())
     if (!req.file) {
         res.status(400).send('No file in request')
@@ -40,17 +51,9 @@ app.post('/upload-csv', upload.single('file'), (req: Request, res: Response) => 
     // Immediately return a HTTP 200 response
     res.status(200).send('File upload received. Processing will begin shortly.')
 
-    // Move the uploaded file to the desired location
-    fs.copyFile(req.file.path, process.env.INPUT_CSV_FILE_PATH!, async (err: any) => {
-        if (err) {
-            console.error('Could not move uploaded file', err);
-            return;
-        }
+    await deploy()
 
-        await deploy()
-
-        console.log('Deploy finished', new Date())
-    });
+    console.log('Deploy finished', new Date())
 });
 
 async function sendCsv(url: string) {
