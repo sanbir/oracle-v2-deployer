@@ -5,7 +5,7 @@ import axios from 'axios'
 import FormData from 'form-data'
 import {deploy} from "./deploy"
 
-const upload = multer({ dest: 'uploads/' })
+const upload = multer()
 
 const app = express()
 
@@ -40,7 +40,7 @@ app.post('/upload-csv', upload.single('file'), (req: Request, res: Response) => 
     res.status(200).send('File upload received. Processing will begin shortly.')
 
     // Move the uploaded file to the desired location
-    fs.rename(req.file.path, process.env.INPUT_CSV_FILE_PATH!, async (err: any) => {
+    fs.copyFile(req.file.path, process.env.INPUT_CSV_FILE_PATH!, async (err: any) => {
         if (err) {
             console.error('Could not move uploaded file', err);
             return;
