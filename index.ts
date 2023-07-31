@@ -31,15 +31,8 @@ app.get('/recently-deployed-csv', async (req: Request, res: Response) => {
 })
 
 app.post('/upload-csv', upload.single('file'), (req: Request, res: Response) => {
-    // Grab the URL from the request body
-    const url = process.env.CALLBACK_URL;
-
     if (!req.file) {
         res.status(400).send('No file in request')
-        return
-    }
-    if (!url) {
-        res.status(400).send('No CALLBACK_URL in ENV')
         return
     }
 
@@ -54,7 +47,6 @@ app.post('/upload-csv', upload.single('file'), (req: Request, res: Response) => 
         }
 
         await deploy()
-        await sendCsv(url)
     });
 });
 
