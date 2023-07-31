@@ -1,5 +1,5 @@
 # sorry for one-stage build and not compiling TS to JS, but I guess it's fine for our purposes
-FROM node
+FROM --platform=linux/amd64 node:20-alpine3.17
 
 WORKDIR /usr/src/app
 
