@@ -5,6 +5,7 @@ import {ethers} from "ethers";
 import {DeployData} from "./models/DeployData";
 import {fromCsvEntryToClientConfig} from "./helpers/fromCsvEntryToClientConfig";
 import {attachValidatorIndexes} from "./helpers/attachValidatorIndexes";
+import {fromFeeToBasisPoints} from "./helpers/fromFeeToBasisPoints";
 
 export async function getDeployDataArray() {
     const csvEntries = await readFromCsv()
@@ -24,7 +25,10 @@ export async function getDeployDataArray() {
         csvEntry
     ) => {
         // Check if an entry with the same oracleId already exists in the accumulator
-        const existingEntry = accumulator.find(entry => entry.clientConfig.recipient === csvEntry.withdrawal_address);
+        const existingEntry = accumulator.find(
+            entry => entry.clientConfig.recipient === csvEntry.withdrawal_address
+                && entry.clientConfig.basisPoints === fromFeeToBasisPoints(csvEntry.fee)
+        );
 
         if (existingEntry) {
             // If it does, simply add the val_amount
