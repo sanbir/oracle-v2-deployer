@@ -18,7 +18,7 @@ export async function getRowsFromBigQuery(valIds: number[]): Promise<{val_id: nu
             COALESCE(sync_penalty, 0)
         ) as val_amount 
         FROM \`p2p-data-warehouse.raw_ethereum.validators_summary\`
-        WHERE val_id IN (${valIds})
+        WHERE val_id IN (${valIds}) AND epoch_date < "2023-08-01" 
         GROUP BY val_id
     `
 
