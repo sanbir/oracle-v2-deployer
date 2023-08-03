@@ -14,7 +14,6 @@ export async function deployBatch(
     const batchFactory = getBatchFactorySigned()
 
     const clientConfigs = deployDataArray.map(d => d.clientConfig)
-    const validatorDatas = deployDataArray.map(d => d.validatorData)
 
     const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL)
     // @ts-ignore
@@ -23,7 +22,6 @@ export async function deployBatch(
 
     const tx = await batchFactory.createFeeDistributor(
         clientConfigs,
-        validatorDatas,
         {
             gasLimit: 6000000,
             maxPriorityFeePerGas: 3000000000,
@@ -32,9 +30,9 @@ export async function deployBatch(
         }
     )
     const txReceipt = await tx.wait(1)
-    const events: any = txReceipt?.events?.filter((log: any) => log.event === 'FeeDistributorCreated')
+    const events: any = txReceipt?.events?.filter((log: any) => log.event === 'FeeDistributorFactory__FeeDistributorCreated')
     if (!events || !events.length) {
-        throw Error('No FeeDistributorCreated found')
+        throw Error('No FeeDistributorFactory__FeeDistributorCreated found')
     }
 
     deployDataArray.forEach((deployData, index) => {

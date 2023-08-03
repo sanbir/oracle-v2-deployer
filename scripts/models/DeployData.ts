@@ -1,9 +1,9 @@
 import {ClientConfig} from "./ClientConfig";
-import {ValidatorData} from "./ValidatorData";
+import {ethers} from "ethers";
 
 export interface DeployData {
     clientConfig: ClientConfig
-    validatorData: ValidatorData,
     pubkey: string,
-    feeDistributorAddress: string
+    feeDistributorAddress: string,
+    clientOnlyClRewards: ethers.BigNumber
 }
