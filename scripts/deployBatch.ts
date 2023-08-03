@@ -14,6 +14,7 @@ export async function deployBatch(
     const batchFactory = getBatchFactorySigned()
 
     const clientConfigs = deployDataArray.map(d => d.clientConfig)
+    const clientOnlyClRewardsArray = deployDataArray.map(d => d.clientOnlyClRewards)
 
     const provider = new ethers.providers.JsonRpcProvider(process.env.RPC_URL)
     // @ts-ignore
@@ -21,9 +22,10 @@ export async function deployBatch(
     const nonce = await provider.getTransactionCount(wallet.address)
 
     const tx = await batchFactory.createFeeDistributor(
+        clientOnlyClRewardsArray,
         clientConfigs,
         {
-            gasLimit: 6000000,
+            gasLimit: 10000000,
             maxPriorityFeePerGas: 3000000000,
             maxFeePerGas: 50000000000,
             nonce
