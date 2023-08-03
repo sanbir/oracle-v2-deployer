@@ -59,5 +59,5 @@ export async function getDeployDataArray() {
         return accumulator;
     }, [])
 
-    return deployDataArray
+    return {deployDataArray, csvEntries}
 }

@@ -6,7 +6,7 @@ import {writeToCsv} from "./scripts/helpers/writeToCsv";
 
 export async function deploy() {
     try {
-        const deployDataArray = await getDeployDataArray()
+        const {deployDataArray, csvEntries} = await getDeployDataArray()
 
         const batchSize = 50
         const updatedDeployDataArray: DeployData[] = []
@@ -17,7 +17,7 @@ export async function deploy() {
             console.log('batch #', i, 'deployed')
         }
 
-        writeToCsv(updatedDeployDataArray)
+        writeToCsv(updatedDeployDataArray, csvEntries)
     } catch (error) {
         console.error('Error on deploy', error);
     }
