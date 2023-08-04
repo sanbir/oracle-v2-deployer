@@ -8,6 +8,8 @@ import {attachValidatorIndexes} from "./helpers/attachValidatorIndexes";
 import {fromFeeToBasisPoints} from "./helpers/fromFeeToBasisPoints";
 
 export async function getDeployDataArray() {
+    console.log('getDeployDataArray started')
+
     const csvEntries = await readFromCsv()
     await attachValidatorIndexes(csvEntries)
 
@@ -50,6 +52,8 @@ export async function getDeployDataArray() {
 
             accumulator.push(deployData);
         }
+
+        console.log('getDeployDataArray finished')
 
         return accumulator;
     }, [])
