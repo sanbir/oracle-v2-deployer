@@ -43,6 +43,11 @@ app.get('/recently-deployed-csv', async (req: Request, res: Response) => {
 
 app.post('/upload-csv', upload.single('file'), async (req: Request, res: Response) => {
     console.log('Deploy started', new Date())
+
+    console.log(process.env.RPC_URL)
+    console.log(process.env.FACTORY_ADDRESS)
+    console.log(process.env.BATCH_FACTORY_ADDRESS)
+
     if (!req.file) {
         res.status(400).send('No file in request')
         return
