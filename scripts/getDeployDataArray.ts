@@ -16,7 +16,7 @@ export async function getDeployDataArray() {
     const csvEntriesWithAmount: CsvEntryWithAmount[] = csvEntries.map(entry => ({
         ...entry,
         val_amount: ethers.BigNumber.from(
-            arrayFromBq.find(pair => pair.val_id === entry.validator_index)?.val_amount
+            arrayFromBq.find(pair => pair.val_id === entry.validator_index)?.val_amount || 0
         ).mul(1e9)
     }))
 
