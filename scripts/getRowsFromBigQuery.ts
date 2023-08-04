@@ -3,10 +3,7 @@ import { BigQuery } from "@google-cloud/bigquery"
 export async function getRowsFromBigQuery(valIds: number[]): Promise<{val_id: number, val_amount: number}[]> {
     console.log('BigQuery started...')
 
-    const bigquery = new BigQuery({
-        keyFilename: process.env.KEY_FILE_NAME,
-        projectId: process.env.PROJECT_ID
-    })
+    const bigquery = new BigQuery()
 
     const query = `
         SELECT val_id, sum(
