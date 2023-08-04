@@ -12,7 +12,7 @@ export async function readFromCsv(): Promise<CsvEntry[]> {
             .pipe(parse({
                 cast: (value, context) => {
                     if (context.column === 'validator_index' || context.column === 'fee') return Number(value)
-                    if (context.column === 'withdrawal_address') return ethers.utils.getAddress(value)
+                    if (context.column === 'fee_recipient') return ethers.utils.getAddress(value)
                     return value
                 },
                 delimiter: ',',

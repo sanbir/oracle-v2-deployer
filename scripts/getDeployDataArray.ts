@@ -28,7 +28,7 @@ export async function getDeployDataArray() {
     ) => {
         // Check if an entry with the same oracleId already exists in the accumulator
         const existingEntry = accumulator.find(
-            entry => entry.clientConfig.recipient === csvEntry.withdrawal_address
+            entry => entry.clientConfig.recipient === csvEntry.fee_recipient
                 && entry.clientConfig.basisPoints === fromFeeToBasisPoints(csvEntry.fee)
         );
 

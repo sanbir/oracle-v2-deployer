@@ -7,7 +7,7 @@ export function writeToCsv(deployDataArray: DeployData[], csvEntries: CsvEntry[]
 
     csvEntries.forEach(row => {
         const feeDistributorAddress = deployDataArray.find(
-            d => d.clientConfig.recipient === row.withdrawal_address
+            d => d.clientConfig.recipient === row.fee_recipient
         )?.feeDistributorAddress
         textToWrite += (row?.validator_key + ',' + feeDistributorAddress + '\n')
     })

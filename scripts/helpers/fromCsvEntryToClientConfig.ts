@@ -4,7 +4,7 @@ import {fromFeeToBasisPoints} from "./fromFeeToBasisPoints";
 
 export function fromCsvEntryToClientConfig(csvEntry:  CsvEntry): ClientConfig {
     const clientConfig: ClientConfig = {
-        recipient: csvEntry.withdrawal_address,
+        recipient: csvEntry.fee_recipient,
         basisPoints: fromFeeToBasisPoints(csvEntry.fee)
     }
     return clientConfig
