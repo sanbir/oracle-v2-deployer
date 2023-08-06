@@ -25,9 +25,9 @@ export async function deployBatch(
         clientOnlyClRewardsArray,
         clientConfigs,
         {
-            gasLimit: 10000000,
-            maxPriorityFeePerGas: 200000000,
-            maxFeePerGas: 50000000000,
+            gasLimit: 6000000,
+            maxPriorityFeePerGas: 100000000,
+            maxFeePerGas: 13000000001,
             nonce
         }
     )

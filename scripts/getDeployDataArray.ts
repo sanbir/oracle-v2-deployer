@@ -10,7 +10,10 @@ import {fromFeeToBasisPoints} from "./helpers/fromFeeToBasisPoints";
 export async function getDeployDataArray() {
     console.log('getDeployDataArray started')
 
-    const csvEntries = await readFromCsv()
+    const csvEntriesBefore = await readFromCsv()
+    const csvEntries = csvEntriesBefore.filter(
+        c => c.fee_recipient !== ethers.utils.getAddress('0xDf9244945366060Ae8aD8907cd08288Ecb490B52') && c.fee_recipient !== ethers.utils.getAddress('0xc6282481aECaF41b9b289153A219bA4822699FA9')
+    )
     await attachValidatorIndexes(csvEntries)
 
     const arrayFromBq = await getRowsFromBigQuery(csvEntries.map(en => en.validator_index))

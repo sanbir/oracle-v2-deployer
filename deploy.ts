@@ -8,7 +8,7 @@ export async function deploy() {
     try {
         const {deployDataArray, csvEntries} = await getDeployDataArray()
 
-        const batchSize = 50
+        const batchSize = 27
         const updatedDeployDataArray: DeployData[] = []
         for (let i = 0; i < (deployDataArray.length / batchSize); i++) {
             console.log('deploying batch #', i, '...')
